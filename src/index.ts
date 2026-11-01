@@ -1,25 +1,8 @@
-interface BookmarkBase {
-    title: string
-    url: string
-    category: string
-    tags: string[]
-    isFavorite: boolean
-    note?: string
-}
+import { Library } from './library.ts'
+import { show } from './show.ts'
+import type { Bookmark } from './types.ts'
 
-interface WebsiteBookmark extends BookmarkBase {
-    kind: 'website'
-}
-
-interface ProductBookmark extends BookmarkBase {
-    kind: 'product'
-    price: number
-    currency: string
-}
-
-type Bookmark = WebsiteBookmark | ProductBookmark
-
-const bookmarks: Bookmark[] = [
+const initialData: Bookmark[] = [
     {
         kind: 'website',
         title: 'JavaScript Visualizer 9000',
@@ -49,28 +32,22 @@ const bookmarks: Bookmark[] = [
     },
 ]
 
-function showBookmark(bookmark: Bookmark): string {
-    const details = [
-        bookmark.title,
-        `Category: ${bookmark.category}`,
-        `Tags: ${bookmark.tags.join(', ')}`,
-    ]
+const library = new Library()
 
-    if (bookmark.note) {
-        details.push(`Note: ${bookmark.note}`)
-    }
-
-    if (bookmark.kind === 'website') {
-        return details.join('\n')
-    }
-
-    if (bookmark.kind === 'product') {
-        return [...details, `Price: ${bookmark.price} ${bookmark.currency}`].join('\n')
-    }
-
-    throw new Error('Unknown bookmark kind')
+for (const bookmark of initialData) {
+    library.add(bookmark)
 }
 
+console.log('Before:', library.getCounts())
+
+library.remove('https://bigfrontend.dev')
+
+console.log('After:', library.getCounts())
+
+console.log('\nBookmark Library:')
+
+const bookmarks = library.getBookmarks()
+
 for (const bookmark of bookmarks) {
-    console.log(`\n${showBookmark(bookmark)}`)
+    console.log(`\n${show(bookmark)}`)
 }
