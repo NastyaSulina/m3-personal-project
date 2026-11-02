@@ -1,3 +1,4 @@
+import { isBookmark } from './guards.ts'
 import { Library } from './library.ts'
 import { show } from './show.ts'
 import type { Bookmark } from './types.ts'
@@ -38,16 +39,47 @@ for (const bookmark of initialData) {
     library.add(bookmark)
 }
 
-console.log('Before:', library.getCounts())
+console.log('Initial count:', library.getCounts())
 
 library.remove('https://bigfrontend.dev')
+console.log('Count after removal:', library.getCounts())
 
-console.log('After:', library.getCounts())
+const input: unknown = {
+    kind: 'website',
+    title: 'Инструменты иллюстрации',
+    url: 'https://courses.prostaya.ru/instrumenty',
+    category: 'other',
+    tags: ['illustration', 'art', 'course'],
+    isFavorite: false,
+}
 
-console.log('\nBookmark Library:')
+add(input)
+console.log('Count after addition:', library.getCounts())
+
+try {
+    add({
+        kind: 'website',
+        title: 'incomplete bookmark',
+    })
+} catch (error) {
+    if (!(error instanceof Error)) {
+        throw error
+    }
+
+    console.log(error.message)
+}
 
 const bookmarks = library.getBookmarks()
+console.log('\nBookmark Library:')
 
 for (const bookmark of bookmarks) {
     console.log(`\n${show(bookmark)}`)
+}
+
+function add(input: unknown): void {
+    if (!isBookmark(input)) {
+        throw new Error('Invalid input, cannot add bookmark')
+    }
+
+    library.add(input)
 }
