@@ -1,0 +1,29 @@
+[
+    {
+        "kind": "website",
+        "title": "JavaScript Visualizer 9000",
+        "url": "https://www.jsv9000.app",
+        "category": "development",
+        "tags": ["javascript", "visualization", "learning"],
+        "note": "Useful for understanding the event loop",
+        "isFavorite": false
+    },
+    {
+        "kind": "website",
+        "title": "BigFrontend",
+        "url": "https://bigfrontend.dev",
+        "category": "development",
+        "tags": ["frontend", "interview", "practice"],
+        "isFavorite": false
+    },
+    {
+        "kind": "product",
+        "title": "Leather cropped jacket",
+        "url": "https://shop.mango.com/es/ca/p/dona/jaquetes/cropped/jaqueta-pell-solapes/37064776/30/00",
+        "category": "shopping",
+        "tags": ["jacket", "mango"],
+        "isFavorite": true,
+        "price": 99.99,
+        "currency": "EUR"
+    }
+]
