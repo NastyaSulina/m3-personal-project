@@ -7,10 +7,13 @@ export default defineConfig([
     globalIgnores(['**/dist']),
     {
         files: ['src/**/*.{ts,tsx}'],
-        extends: [jseslint.configs.recommended, tseslint.configs.recommended],
+        extends: [jseslint.configs.recommended, tseslint.configs.recommendedTypeChecked],
         languageOptions: {
             ecmaVersion: 2020,
             globals: globals.browser,
+            parserOptions: {
+                projectService: true,
+            },
         },
         rules: {},
     },

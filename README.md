@@ -1,16 +1,14 @@
-# m3-personal-project
+# m3-personal-project: Bookmark Library
 
 My personal project for the Advanced JS and TypeScript course at Harbour Space.
-
-## Bookmark Library
 
 I save links to shops, books, courses and useful tools in different places. I'm building Bookmark Library to keep them together.
 
 ## Run
 
 ```bash
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
 ## Linting
@@ -18,5 +16,5 @@ npm start
 TypeScript, ESLint and Prettier checks:
 
 ```bash
-npm run lint
+pnpm lint
 ```
