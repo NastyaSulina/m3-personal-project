@@ -1,4 +1,4 @@
-import type { Bookmark } from './types.ts'
+import type { Bookmark } from 'bookmark-library'
 
 export function show(bookmark: Bookmark): string {
     const details = [

@@ -5,6 +5,7 @@ on:
         paths:
             - 'features/**'
             - 'internal/**'
+            - 'apps/**'
             - 'package.json'
             - 'pnpm-workspace.yaml'
             - 'nx.json'

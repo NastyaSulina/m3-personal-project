@@ -1,0 +1,26 @@
+{
+    "name": "bookmark-cli",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "type": "module",
+    "main": "src/index.ts",
+    "scripts": {
+        "dev": "node .",
+        "lint": "pnpm run \"/^lint-.*/\"",
+        "lint-prettier": "prettier --check .",
+        "lint-eslint": "eslint .",
+        "lint-typecheck": "tsc --noEmit",
+        "clean": "rm -rf node_modules/.cache tsconfig.tsbuildinfo"
+    },
+    "dependencies": {
+        "bookmark-library": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "dev-config": "workspace:*",
+        "eslint": "catalog:",
+        "prettier": "catalog:",
+        "typescript": "catalog:"
+    }
+}

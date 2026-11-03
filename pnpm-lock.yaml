@@ -185,6 +185,28 @@ importers:
         specifier: ^24.0.3
         version: 24.0.3
 
+  apps/bookmark-cli:
+    dependencies:
+      bookmark-library:
+        specifier: workspace:*
+        version: link:../../features/bookmark-library
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.19.2
+      dev-config:
+        specifier: workspace:*
+        version: link:../../internal/dev-config
+      eslint:
+        specifier: 'catalog:'
+        version: 10.14.0(supports-color@7.2.0)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.9.10
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
   features/bookmark-library:
     devDependencies:
       '@types/node':
