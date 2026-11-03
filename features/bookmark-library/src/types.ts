@@ -1,5 +1,4 @@
 export type Kind = 'website' | 'product'
-
 export type Category = 'development' | 'shopping' | 'reading' | 'other'
 
 interface BookmarkBase {
