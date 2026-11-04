@@ -4,7 +4,11 @@
         "title": "JavaScript Visualizer 9000",
         "url": "https://www.jsv9000.app",
         "category": "development",
-        "tags": ["javascript", "visualization", "learning"],
+        "tags": [
+            "javascript",
+            "visualization",
+            "learning"
+        ],
         "note": "Useful for understanding the event loop",
         "isFavorite": false
     },
@@ -13,7 +17,11 @@
         "title": "BigFrontend",
         "url": "https://bigfrontend.dev",
         "category": "development",
-        "tags": ["frontend", "interview", "practice"],
+        "tags": [
+            "frontend",
+            "interview",
+            "practice"
+        ],
         "isFavorite": false
     },
     {
@@ -21,9 +29,36 @@
         "title": "Leather cropped jacket",
         "url": "https://shop.mango.com/es/ca/p/dona/jaquetes/cropped/jaqueta-pell-solapes/37064776/30/00",
         "category": "shopping",
-        "tags": ["jacket", "mango"],
+        "tags": [
+            "jacket",
+            "mango"
+        ],
         "isFavorite": true,
         "price": 99.99,
         "currency": "EUR"
+    },
+    {
+        "kind": "website",
+        "title": "Инструменты иллюстрации",
+        "url": "https://courses.prostaya.ru/instrumenty",
+        "category": "other",
+        "tags": [
+            "illustration",
+            "art",
+            "course"
+        ],
+        "isFavorite": false
+    },
+    {
+        "kind": "website",
+        "title": "Test title",
+        "url": "https://test.com",
+        "category": "other",
+        "tags": [
+            "test",
+            "website"
+        ],
+        "isFavorite": true,
+        "note": "This is test bookmark"
     }
 ]

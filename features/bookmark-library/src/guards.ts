@@ -1,4 +1,5 @@
 import type { Bookmark, Category } from './types.ts'
+import { isValidPrice, isValidUrl } from './validate.ts'
 
 function isCategory(value: unknown): value is Category {
     return (
@@ -11,11 +12,11 @@ export function isBookmark(value: unknown): value is Bookmark {
         return false
     }
 
-    if (!('title' in value) || typeof value.title !== 'string') {
+    if (!('title' in value) || typeof value.title !== 'string' || !value.title.trim()) {
         return false
     }
 
-    if (!('url' in value) || typeof value.url !== 'string') {
+    if (!('url' in value) || typeof value.url !== 'string' || !isValidUrl(value.url)) {
         return false
     }
 
@@ -49,12 +50,10 @@ export function isBookmark(value: unknown): value is Bookmark {
 
     if (value.kind === 'product') {
         const validPrice =
-            'price' in value &&
-            typeof value.price === 'number' &&
-            Number.isFinite(value.price) &&
-            value.price >= 0
+            'price' in value && typeof value.price === 'number' && isValidPrice(value.price)
 
-        const validCurrency = 'currency' in value && typeof value.currency === 'string'
+        const validCurrency =
+            'currency' in value && typeof value.currency === 'string' && !!value.currency.trim()
 
         return validPrice && validCurrency
     }

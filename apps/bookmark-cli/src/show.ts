@@ -3,6 +3,7 @@ import type { Bookmark } from 'bookmark-library'
 export function show(bookmark: Bookmark): string {
     const details = [
         bookmark.title,
+        `URL: ${bookmark.url}`,
         `Category: ${bookmark.category}`,
         `Tags: ${bookmark.tags.join(', ')}`,
     ]

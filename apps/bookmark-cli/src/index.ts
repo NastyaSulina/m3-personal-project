@@ -1,38 +1,39 @@
-import Library from 'bookmark-library'
+import { Command } from 'commander'
 
-import { add } from './commands/index.ts'
-import { read } from './files/index.ts'
-import { show } from './show.ts'
+import add from './commands/add/index.ts'
+import remove from './commands/remove/index.ts'
+
+const program = new Command()
+
+program.name('bookmarks').description('A personal bookmark library')
+
+program
+    .command('add')
+    .description('Add a bookmark')
+    .argument('[url]', 'website or product URL')
+    .option('--title <title>', 'bookmark title')
+    .option('--kind <kind>', 'website or product')
+    .option('--category <category>', 'bookmark category')
+    .option('--tags <tags>', 'comma-separated tags')
+    .option('--note <note>', 'bookmark note')
+    .option('--favorite', 'mark as favorite')
+    .option('--price <price>', 'product price')
+    .option('--currency <currency>', 'product currency')
+    .action(add)
+
+program
+    .command('remove')
+    .description('Remove a bookmark')
+    .argument('[url]', 'bookmark URL')
+    .action(remove)
 
 try {
-    const initialData = await read()
-    const library = new Library()
-
-    for (const bookmark of initialData) {
-        library.add(bookmark)
-    }
-
-    console.log('Initial count:', library.getCounts())
-
-    const input: unknown = {
-        kind: 'website',
-        title: 'Инструменты иллюстрации',
-        url: 'https://courses.prostaya.ru/instrumenty',
-        category: 'other',
-        tags: ['illustration', 'art', 'course'],
-        isFavorite: false,
-    }
-
-    add(library, input)
-
-    console.log('Count after addition:', library.getCounts())
-    console.log('\nBookmark Library:')
-
-    const bookmarks = library.getBookmarks()
-    for (const bookmark of bookmarks) {
-        console.log(`\n${show(bookmark)}`)
-    }
+    await program.parseAsync()
 } catch (error) {
-    console.error(error instanceof Error ? error.message : error)
-    process.exitCode = 1
+    if (error instanceof Error && error.name === 'ExitPromptError') {
+        process.exitCode = 0
+    } else {
+        console.error(error instanceof Error ? error.message : 'Unexpected error')
+        process.exitCode = 1
+    }
 }

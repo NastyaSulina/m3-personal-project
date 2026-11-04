@@ -1,16 +1,15 @@
 import { readFile } from 'node:fs/promises'
-import path from 'node:path'
 
 import type { Bookmark } from 'bookmark-library'
 import { isBookmark } from 'bookmark-library'
 
-export async function read(): Promise<Bookmark[]> {
-    const path = locateBookmarks()
+import { bookmarksFile } from './path.ts'
 
+export async function read(): Promise<Bookmark[]> {
     let text: string
 
     try {
-        text = await readFile(path, 'utf8')
+        text = await readFile(bookmarksFile, 'utf8')
     } catch (error) {
         if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
             throw new Error('Bookmarks file not found', { cause: error })
@@ -32,8 +31,4 @@ export async function read(): Promise<Bookmark[]> {
     }
 
     return data
-}
-
-function locateBookmarks(): string {
-    return path.join(import.meta.dirname, '..', '..', 'data', 'bookmarks.json')
 }

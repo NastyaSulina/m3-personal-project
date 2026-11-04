@@ -14,7 +14,9 @@
         "clean": "rm -rf node_modules/.cache tsconfig.tsbuildinfo"
     },
     "dependencies": {
-        "bookmark-library": "workspace:*"
+        "@inquirer/prompts": "^8.7.5",
+        "bookmark-library": "workspace:*",
+        "commander": "^15.0.0"
     },
     "devDependencies": {
         "@types/node": "catalog:",
