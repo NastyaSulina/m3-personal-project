@@ -4,6 +4,7 @@ import type { FastifyPluginAsync } from 'fastify'
 
 import { createBookmark } from '../../create.ts'
 import { loadLibrary } from '../../load.ts'
+import { removeBookmark } from '../../remove.ts'
 
 const bookmarks: FastifyPluginAsync = (fastify) => {
     fastify.get<{ Reply: { 200: Bookmark[] } }>('/bookmarks', async () => {
@@ -48,6 +49,22 @@ const bookmarks: FastifyPluginAsync = (fastify) => {
         }
 
         return reply.code(201).send(bookmark)
+    })
+
+    fastify.delete<{
+        Params: { id: string }
+        Reply: {
+            200: Record<string, never>
+            404: ErrorResponse
+        }
+    }>('/bookmarks/:id', async (request, reply) => {
+        const removed = await removeBookmark(request.params.id)
+
+        if (!removed) {
+            return reply.code(404).send({ error: 'Bookmark not found' })
+        }
+
+        return reply.code(200).send({})
     })
 
     return Promise.resolve()

@@ -1,26 +1,34 @@
 import { select } from '@inquirer/prompts'
-
-import { write } from '../../files/index.ts'
-import { loadLibrary } from '../../load.ts'
+import { getBookmarks, removeBookmark } from 'bookmark-library'
 
 async function remove(url?: string): Promise<void> {
-    const library = await loadLibrary()
-    const bookmarks = library.getBookmarks()
+    const bookmarks = await getBookmarks()
 
     if (bookmarks.length === 0) {
         throw new Error('No bookmarks to remove')
     }
 
-    url ??= await select({
-        message: 'Choose a bookmark',
-        choices: bookmarks.map((bookmark) => ({
-            name: `${bookmark.title}: ${bookmark.url}`,
-            value: bookmark.url,
-        })),
-    })
+    let id: string
 
-    library.remove(url)
-    await write(library.getBookmarks())
+    if (url !== undefined) {
+        const bookmark = bookmarks.find((bookmark) => bookmark.url === url)
+
+        if (!bookmark) {
+            throw new Error('Bookmark not found')
+        }
+
+        id = bookmark.id
+    } else {
+        id = await select({
+            message: 'Choose a bookmark',
+            choices: bookmarks.map((bookmark) => ({
+                name: `${bookmark.title}: ${bookmark.url}`,
+                value: bookmark.id,
+            })),
+        })
+    }
+
+    await removeBookmark(id)
 
     console.log('Bookmark removed')
 }

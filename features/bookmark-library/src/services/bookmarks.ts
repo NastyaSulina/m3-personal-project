@@ -15,3 +15,20 @@ export async function addBookmark(bookmark: BookmarkInput): Promise<Bookmark> {
 
     return result
 }
+
+export async function getBookmarks(): Promise<Bookmark[]> {
+    const result = await request({ path: '/bookmarks' })
+
+    if (!Array.isArray(result) || !result.every(isBookmark)) {
+        throw new Error('Invalid bookmarks returned by the server')
+    }
+
+    return result
+}
+
+export async function removeBookmark(id: string): Promise<void> {
+    await request({
+        path: `/bookmarks/${encodeURIComponent(id)}`,
+        method: 'DELETE',
+    })
+}

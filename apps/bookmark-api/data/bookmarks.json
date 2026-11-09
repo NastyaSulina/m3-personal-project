@@ -55,19 +55,6 @@
     },
     {
         "kind": "website",
-        "title": "Test title",
-        "url": "https://test.com",
-        "category": "other",
-        "tags": [
-            "test",
-            "website"
-        ],
-        "isFavorite": true,
-        "note": "This is test bookmark",
-        "id": "65427f90-30c5-42a7-8b0b-cc569154dbbf"
-    },
-    {
-        "kind": "website",
         "title": "Testing Library",
         "url": "https://joi.dev/",
         "category": "development",
