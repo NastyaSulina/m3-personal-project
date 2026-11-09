@@ -1,11 +1,9 @@
-import type { Bookmark } from 'bookmark-library'
+import type { Bookmark, ErrorResponse } from 'bookmark-library'
+import { isBookmarkInput } from 'bookmark-library'
 import type { FastifyPluginAsync } from 'fastify'
 
+import { createBookmark } from '../../create.ts'
 import { loadLibrary } from '../../load.ts'
-
-interface ErrorReply {
-    error: string
-}
 
 const bookmarks: FastifyPluginAsync = (fastify) => {
     fastify.get<{ Reply: { 200: Bookmark[] } }>('/bookmarks', async () => {
@@ -18,7 +16,7 @@ const bookmarks: FastifyPluginAsync = (fastify) => {
         Params: { id: string }
         Reply: {
             200: Bookmark
-            404: ErrorReply
+            404: ErrorResponse
         }
     }>('/bookmarks/:id', async (request, reply) => {
         const library = await loadLibrary()
@@ -29,6 +27,27 @@ const bookmarks: FastifyPluginAsync = (fastify) => {
         }
 
         return reply.code(200).send(bookmark)
+    })
+
+    fastify.post<{
+        Body: unknown
+        Reply: {
+            201: Bookmark
+            400: ErrorResponse
+            409: ErrorResponse
+        }
+    }>('/bookmarks', async (request, reply) => {
+        if (!isBookmarkInput(request.body)) {
+            return reply.code(400).send({ error: 'Invalid bookmark input' })
+        }
+
+        const bookmark = await createBookmark(request.body)
+
+        if (!bookmark) {
+            return reply.code(409).send({ error: 'Bookmark already exists' })
+        }
+
+        return reply.code(201).send(bookmark)
     })
 
     return Promise.resolve()

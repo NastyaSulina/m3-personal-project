@@ -1,8 +1,5 @@
 import { confirm, input, select } from '@inquirer/prompts'
-import { isBookmark } from 'bookmark-library'
-
-import { write } from '../../files/index.ts'
-import { loadLibrary } from '../../load.ts'
+import { addBookmark, isBookmarkInput } from 'bookmark-library'
 
 interface AddOptions {
     title?: string
@@ -71,15 +68,12 @@ async function add(url: string | undefined, options: AddOptions): Promise<void> 
         bookmark.currency = currency.trim().toUpperCase()
     }
 
-    if (!isBookmark(bookmark)) {
+    if (!isBookmarkInput(bookmark)) {
         throw new Error('Invalid bookmark input')
     }
 
-    const library = await loadLibrary()
-    library.add(bookmark)
-
-    await write(library.getBookmarks())
-    console.log(`Added: ${bookmark.title}`)
+    const created = await addBookmark(bookmark)
+    console.log(`Added: ${created.title}`)
 }
 
 export default add

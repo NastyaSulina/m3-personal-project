@@ -4,7 +4,11 @@
         "title": "JavaScript Visualizer 9000",
         "url": "https://www.jsv9000.app",
         "category": "development",
-        "tags": ["javascript", "visualization", "learning"],
+        "tags": [
+            "javascript",
+            "visualization",
+            "learning"
+        ],
         "note": "Useful for understanding the event loop",
         "isFavorite": false,
         "id": "c700fd54-febf-4b6d-b66c-f9915f85dffb"
@@ -14,7 +18,11 @@
         "title": "BigFrontend",
         "url": "https://bigfrontend.dev",
         "category": "development",
-        "tags": ["frontend", "interview", "practice"],
+        "tags": [
+            "frontend",
+            "interview",
+            "practice"
+        ],
         "isFavorite": false,
         "id": "944cb949-ae39-46b2-b132-31b786fe5ab5"
     },
@@ -23,7 +31,10 @@
         "title": "Leather cropped jacket",
         "url": "https://shop.mango.com/es/ca/p/dona/jaquetes/cropped/jaqueta-pell-solapes/37064776/30/00",
         "category": "shopping",
-        "tags": ["jacket", "mango"],
+        "tags": [
+            "jacket",
+            "mango"
+        ],
         "isFavorite": true,
         "price": 99.99,
         "currency": "EUR",
@@ -34,7 +45,11 @@
         "title": "Инструменты иллюстрации",
         "url": "https://courses.prostaya.ru/instrumenty",
         "category": "other",
-        "tags": ["illustration", "art", "course"],
+        "tags": [
+            "illustration",
+            "art",
+            "course"
+        ],
         "isFavorite": false,
         "id": "3ec1b134-c0f5-43be-b5e8-b1dd04202ebe"
     },
@@ -43,9 +58,26 @@
         "title": "Test title",
         "url": "https://test.com",
         "category": "other",
-        "tags": ["test", "website"],
+        "tags": [
+            "test",
+            "website"
+        ],
         "isFavorite": true,
         "note": "This is test bookmark",
         "id": "65427f90-30c5-42a7-8b0b-cc569154dbbf"
+    },
+    {
+        "kind": "website",
+        "title": "Testing Library",
+        "url": "https://joi.dev/",
+        "category": "development",
+        "tags": [
+            "testing",
+            "joi",
+            "zod"
+        ],
+        "isFavorite": false,
+        "note": "Try it",
+        "id": "5863a93d-db3e-45ec-903b-72945afc5294"
     }
 ]
