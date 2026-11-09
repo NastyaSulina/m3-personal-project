@@ -9,26 +9,39 @@ export class Library {
     }
 
     add(bookmark: Bookmark): void {
-        if (this.#bookmarks.has(bookmark.url)) {
+        if (this.#bookmarks.has(bookmark.id)) {
+            throw new Error('Bookmark ID already exists')
+        }
+
+        const duplicate = [...this.#bookmarks.values()].some((item) => item.url === bookmark.url)
+
+        if (duplicate) {
             throw new Error('Bookmark already exists')
         }
 
-        this.#bookmarks.set(bookmark.url, {
+        this.#bookmarks.set(bookmark.id, {
             ...bookmark,
             tags: [...bookmark.tags],
         })
+
         this.#counts[bookmark.kind]++
     }
 
-    remove(url: string): void {
-        const bookmark = this.#bookmarks.get(url)
+    remove(id: string): void {
+        const bookmark = this.#bookmarks.get(id)
 
-        if (bookmark === undefined) {
+        if (!bookmark) {
             throw new Error('Bookmark not found')
         }
 
+        this.#bookmarks.delete(id)
         this.#counts[bookmark.kind]--
-        this.#bookmarks.delete(url)
+    }
+
+    getBookmark(id: string): Bookmark | undefined {
+        const bookmark = this.#bookmarks.get(id)
+
+        return bookmark ? { ...bookmark, tags: [...bookmark.tags] } : undefined
     }
 
     getBookmarks(): Bookmark[] {

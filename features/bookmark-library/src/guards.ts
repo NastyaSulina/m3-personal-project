@@ -1,4 +1,4 @@
-import type { Bookmark, Category } from './types.ts'
+import type { Bookmark, BookmarkInput, Category } from './types.ts'
 import { isValidPrice, isValidUrl } from './validate.ts'
 
 function isCategory(value: unknown): value is Category {
@@ -7,7 +7,7 @@ function isCategory(value: unknown): value is Category {
     )
 }
 
-export function isBookmark(value: unknown): value is Bookmark {
+export function isBookmarkInput(value: unknown): value is BookmarkInput {
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
         return false
     }
@@ -40,12 +40,19 @@ export function isBookmark(value: unknown): value is Bookmark {
         return false
     }
 
+    if (
+        'imageUrl' in value &&
+        (typeof value.imageUrl !== 'string' || !isValidUrl(value.imageUrl))
+    ) {
+        return false
+    }
+
     if (!('kind' in value)) {
         return false
     }
 
     if (value.kind === 'website') {
-        return true
+        return !('price' in value || 'currency' in value)
     }
 
     if (value.kind === 'product') {
@@ -59,4 +66,14 @@ export function isBookmark(value: unknown): value is Bookmark {
     }
 
     return false
+}
+
+export function isBookmark(value: unknown): value is Bookmark {
+    if (!isBookmarkInput(value)) {
+        return false
+    }
+
+    const validId = 'id' in value && typeof value.id === 'string' && !!value.id.trim()
+
+    return validId
 }

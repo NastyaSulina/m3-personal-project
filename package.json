@@ -10,7 +10,8 @@
         }
     },
     "scripts": {
-        "dev": "nx run bookmark-cli:dev",
+        "dev:api": "nx run bookmark-api:dev",
+        "dev:cli": "nx run bookmark-cli:dev",
         "lint": "nx run-many -t lint",
         "lint-typecheck": "nx run-many -t lint-typecheck",
         "lint-eslint": "nx run-many -t lint-eslint",

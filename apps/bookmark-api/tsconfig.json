@@ -1,0 +1,7 @@
+{
+    "extends": "dev-config/typescript",
+    "compilerOptions": {
+        "types": ["node"]
+    },
+    "include": ["src"]
+}

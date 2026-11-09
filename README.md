@@ -8,7 +8,8 @@ I save links to shops, books, courses and useful tools in different places. I'm 
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev:api
+pnpm dev:cli
 ```
 
 ## Linting
