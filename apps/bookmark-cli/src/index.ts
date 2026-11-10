@@ -1,11 +1,14 @@
 import { Command } from 'commander'
 
 import add from './commands/add/index.ts'
+import list from './commands/list/index.ts'
 import remove from './commands/remove/index.ts'
 
 const program = new Command()
 
 program.name('bookmarks').description('A personal bookmark library')
+
+program.command('list').description('List all bookmarks').action(list)
 
 program
     .command('add')
