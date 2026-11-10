@@ -1,0 +1,32 @@
+{
+    "name": "bookmark-web",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "lint": "pnpm run \"/^lint-.*/\"",
+        "lint-prettier": "prettier --check .",
+        "lint-eslint": "eslint .",
+        "lint-typecheck": "tsc --noEmit",
+        "clean": "rm -rf node_modules/.cache tsconfig.tsbuildinfo dist"
+    },
+    "dependencies": {
+        "bookmark-library": "workspace:*",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "@types/react": "^19.2.0",
+        "@types/react-dom": "^19.2.0",
+        "@vitejs/plugin-react": "^6.0.0",
+        "dev-config": "workspace:*",
+        "eslint": "catalog:",
+        "prettier": "catalog:",
+        "typescript": "catalog:",
+        "vite": "^8.3.5"
+    }
+}
