@@ -19,12 +19,14 @@
         "react-dom": "^19.2.0"
     },
     "devDependencies": {
+        "@eslint-react/eslint-plugin": "^5.0.0",
         "@types/node": "catalog:",
         "@types/react": "^19.2.0",
         "@types/react-dom": "^19.2.0",
         "@vitejs/plugin-react": "^6.0.0",
         "dev-config": "workspace:*",
         "eslint": "catalog:",
+        "eslint-plugin-react-hooks": "^7.1.1",
         "prettier": "catalog:",
         "typescript": "catalog:",
         "vite": "^8.3.5"

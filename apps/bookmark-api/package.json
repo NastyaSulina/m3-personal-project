@@ -15,6 +15,7 @@
         "clean": "rm -rf node_modules/.cache tsconfig.tsbuildinfo"
     },
     "dependencies": {
+        "@fastify/cors": "^11.4.1",
         "bookmark-library": "workspace:*",
         "fastify": "^5.12.8"
     },
