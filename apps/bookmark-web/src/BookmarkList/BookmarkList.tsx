@@ -2,7 +2,7 @@ import type { Bookmark } from 'bookmark-library'
 import { removeBookmark, setBookmarkFavorite } from 'bookmark-library'
 import { useState } from 'react'
 
-import BookmarkCard from '../BookmarkCard/index.ts'
+import BookmarkCard from './BookmarkCard/index.ts'
 
 export default function BookmarkList({ initialBookmarks }: { initialBookmarks: Bookmark[] }) {
     const [bookmarks, setBookmarks] = useState(initialBookmarks)
