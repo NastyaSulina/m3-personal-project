@@ -49,6 +49,10 @@ pnpm lint
 - `features/bookmark-library` contains the bookmark types, validation, library class and API calls
 - `internal/dev-config` holds the shared TypeScript, ESLint and Prettier settings.
 
+## Storage limitation
+
+I store bookmarks in a JSON file because that's how we learned to save data in class. The API loads the file once at startup. It keeps one library in memory and saves each change to disk. Multiple processes could overwrite each other's changes, so I'd use a database for that.
+
 ## What's next
 
 `GET /api/bookmarks` returns the whole collection. As the list grows, I'd like to fetch it a page at a time.

@@ -1,15 +1,14 @@
+import type Library from 'bookmark-library'
+
 import { write } from '../files/index.ts'
-import { loadLibrary } from './load.ts'
 
-export async function removeBookmark(id: string): Promise<boolean> {
-    const library = await loadLibrary()
-
+export async function removeBookmark(library: Library, id: string): Promise<boolean> {
     if (!library.getBookmark(id)) {
         return false
     }
 
+    await write(library.getBookmarks().filter((bookmark) => bookmark.id !== id))
     library.remove(id)
-    await write(library.getBookmarks())
 
     return true
 }

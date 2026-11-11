@@ -1,14 +1,17 @@
 import { randomUUID } from 'node:crypto'
 
+import type Library from 'bookmark-library'
 import type { Bookmark, BookmarkInput } from 'bookmark-library'
 
 import { write } from '../files/index.ts'
-import { loadLibrary } from './load.ts'
 
-export async function createBookmark(input: BookmarkInput): Promise<Bookmark | undefined> {
-    const library = await loadLibrary()
+export async function createBookmark(
+    library: Library,
+    input: BookmarkInput,
+): Promise<Bookmark | undefined> {
+    const bookmarks = library.getBookmarks()
 
-    if (library.getBookmarks().some((bookmark) => bookmark.url === input.url)) {
+    if (bookmarks.some((bookmark) => bookmark.url === input.url)) {
         return undefined
     }
 
@@ -18,8 +21,12 @@ export async function createBookmark(input: BookmarkInput): Promise<Bookmark | u
         id: randomUUID(),
     }
 
+    if (library.getBookmark(bookmark.id)) {
+        throw new Error('Bookmark ID already exists')
+    }
+
+    await write([...bookmarks, bookmark])
     library.add(bookmark)
-    await write(library.getBookmarks())
 
     return bookmark
 }

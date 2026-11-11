@@ -5,15 +5,17 @@ import cn from 'clsx'
 
 interface BookmarkCardProps {
     bookmark: Bookmark
-    isRemoving: boolean
-    removeFailed: boolean
+    isPending: boolean
+    error?: string
+    onFavorite: (id: string, isFavorite: boolean) => Promise<void>
     onRemove: (id: string) => Promise<void>
 }
 
 export default function BookmarkCard({
     bookmark,
-    isRemoving,
-    removeFailed,
+    isPending,
+    error,
+    onFavorite,
     onRemove,
 }: BookmarkCardProps) {
     return (
@@ -33,20 +35,25 @@ export default function BookmarkCard({
                 <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
                     Open
                 </a>
-                <button type="button" className={cn({ favorite: bookmark.isFavorite })}>
+                <button
+                    type="button"
+                    className={cn({ favorite: bookmark.isFavorite })}
+                    disabled={isPending}
+                    onClick={() => void onFavorite(bookmark.id, !bookmark.isFavorite)}
+                >
                     Favorite
                 </button>
                 <button
                     type="button"
-                    disabled={isRemoving}
+                    disabled={isPending}
                     onClick={() => void onRemove(bookmark.id)}
                 >
                     Delete
                 </button>
             </div>
-            {removeFailed && (
+            {error && (
                 <p className="bookmark-card-error" role="alert">
-                    Could not delete this bookmark. Try Delete again.
+                    {error}
                 </p>
             )}
         </li>

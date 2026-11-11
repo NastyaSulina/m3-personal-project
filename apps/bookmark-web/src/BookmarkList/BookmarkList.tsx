@@ -1,25 +1,39 @@
 import type { Bookmark } from 'bookmark-library'
-import { removeBookmark } from 'bookmark-library'
+import { removeBookmark, setBookmarkFavorite } from 'bookmark-library'
 import { useState } from 'react'
 
 import BookmarkCard from '../BookmarkCard/index.ts'
 
 export default function BookmarkList({ initialBookmarks }: { initialBookmarks: Bookmark[] }) {
     const [bookmarks, setBookmarks] = useState(initialBookmarks)
-    const [isRemoving, setIsRemoving] = useState(false)
-    const [failedRemoveId, setFailedRemoveId] = useState<string | null>(null)
+    const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState<{ id: string; message: string } | null>(null)
+
+    async function handleFavorite(id: string, isFavorite: boolean) {
+        setIsPending(true)
+        setError(null)
+
+        try {
+            const updated = await setBookmarkFavorite(id, isFavorite)
+            setBookmarks((current) => current.map((item) => (item.id === id ? updated : item)))
+        } catch {
+            setError({ id, message: 'Could not update this bookmark. Try Favorite again.' })
+        } finally {
+            setIsPending(false)
+        }
+    }
 
     async function handleRemove(id: string) {
-        setIsRemoving(true)
-        setFailedRemoveId(null)
+        setIsPending(true)
+        setError(null)
 
         try {
             await removeBookmark(id)
             setBookmarks((current) => current.filter((bookmark) => bookmark.id !== id))
         } catch {
-            setFailedRemoveId(id)
+            setError({ id, message: 'Could not delete this bookmark. Try Delete again.' })
         } finally {
-            setIsRemoving(false)
+            setIsPending(false)
         }
     }
 
@@ -33,8 +47,9 @@ export default function BookmarkList({ initialBookmarks }: { initialBookmarks: B
                 <BookmarkCard
                     key={bookmark.id}
                     bookmark={bookmark}
-                    isRemoving={isRemoving}
-                    removeFailed={failedRemoveId === bookmark.id}
+                    isPending={isPending}
+                    error={error?.id === bookmark.id ? error.message : undefined}
+                    onFavorite={handleFavorite}
                     onRemove={handleRemove}
                 />
             ))}

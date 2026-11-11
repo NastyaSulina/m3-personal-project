@@ -1,4 +1,4 @@
-import type { Bookmark, Kind } from './types.ts'
+import type { Bookmark, BookmarkChanges, Kind } from './types.ts'
 
 export class Library {
     #bookmarks = new Map<string, Bookmark>()
@@ -36,6 +36,16 @@ export class Library {
 
         this.#bookmarks.delete(id)
         this.#counts[bookmark.kind]--
+    }
+
+    edit(id: string, changes: BookmarkChanges): void {
+        const bookmark = this.#bookmarks.get(id)
+
+        if (!bookmark) {
+            throw new Error('Bookmark not found')
+        }
+
+        this.#bookmarks.set(id, { ...bookmark, ...changes })
     }
 
     getBookmark(id: string): Bookmark | undefined {

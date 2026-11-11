@@ -25,3 +25,5 @@ interface ProductBookmark extends BookmarkBase {
 export type Bookmark = WebsiteBookmark | ProductBookmark
 
 export type BookmarkInput = Omit<WebsiteBookmark, 'id'> | Omit<ProductBookmark, 'id'>
+
+export type BookmarkChanges = Pick<Bookmark, 'isFavorite'>

@@ -23,7 +23,7 @@
             "interview",
             "practice"
         ],
-        "isFavorite": false,
+        "isFavorite": true,
         "id": "944cb949-ae39-46b2-b132-31b786fe5ab5"
     },
     {
@@ -35,7 +35,7 @@
             "jacket",
             "mango"
         ],
-        "isFavorite": true,
+        "isFavorite": false,
         "price": 99.99,
         "currency": "EUR",
         "id": "6288eacb-6a36-42bc-8f6e-9e7f6252cd5e"
@@ -50,7 +50,7 @@
             "art",
             "course"
         ],
-        "isFavorite": false,
+        "isFavorite": true,
         "id": "3ec1b134-c0f5-43be-b5e8-b1dd04202ebe"
     },
     {
