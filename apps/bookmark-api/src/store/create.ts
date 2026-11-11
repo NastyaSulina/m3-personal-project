@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 import type { Bookmark, BookmarkInput } from 'bookmark-library'
 
-import { write } from './files/index.ts'
+import { write } from '../files/index.ts'
 import { loadLibrary } from './load.ts'
 
 export async function createBookmark(input: BookmarkInput): Promise<Bookmark | undefined> {

@@ -2,9 +2,7 @@ import type { Bookmark, ErrorResponse } from 'bookmark-library'
 import { isBookmarkInput } from 'bookmark-library'
 import type { FastifyPluginAsync } from 'fastify'
 
-import { createBookmark } from '../../create.ts'
-import { loadLibrary } from '../../load.ts'
-import { removeBookmark } from '../../remove.ts'
+import { createBookmark, loadLibrary, removeBookmark } from '../../store/index.ts'
 
 const bookmarks: FastifyPluginAsync = (fastify) => {
     fastify.get<{ Reply: { 200: Bookmark[] } }>('/bookmarks', async () => {

@@ -1,6 +1,6 @@
 import Library from 'bookmark-library'
 
-import { read } from './files/index.ts'
+import { read } from '../files/index.ts'
 
 export async function loadLibrary(): Promise<Library> {
     const library = new Library()

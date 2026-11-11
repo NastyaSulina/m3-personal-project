@@ -1,6 +1,6 @@
 import { getBookmarks } from 'bookmark-library'
 
-import { show } from '../../show.ts'
+import { show } from './show.ts'
 
 async function list(): Promise<void> {
     const bookmarks = await getBookmarks()

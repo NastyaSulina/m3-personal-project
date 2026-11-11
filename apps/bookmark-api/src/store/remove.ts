@@ -1,4 +1,4 @@
-import { write } from './files/index.ts'
+import { write } from '../files/index.ts'
 import { loadLibrary } from './load.ts'
 
 export async function removeBookmark(id: string): Promise<boolean> {
