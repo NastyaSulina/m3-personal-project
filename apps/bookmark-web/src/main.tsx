@@ -14,14 +14,33 @@ if (!root) {
 
 const app = createRoot(root)
 
-try {
-    const bookmarks = await getBookmarks()
-
+async function loadBookmarks() {
     app.render(
-        <main className="library">
-            <BookmarkList initialBookmarks={bookmarks} />
-        </main>,
+        <p className="library-state library-loading" role="status">
+            Loading bookmarks…
+        </p>,
     )
-} catch (error) {
-    console.error('Could not load bookmarks', error)
+
+    try {
+        const bookmarks = await getBookmarks()
+        app.render(<BookmarkList initialBookmarks={bookmarks} />)
+    } catch {
+        app.render(
+            <div className="library-state library-error">
+                <div role="alert">
+                    <h1>Could not load bookmarks</h1>
+                    <p>Check that the bookmark server is running.</p>
+                </div>
+                <button
+                    className="library-retry"
+                    type="button"
+                    onClick={() => void loadBookmarks()}
+                >
+                    Try again
+                </button>
+            </div>,
+        )
+    }
 }
+
+void loadBookmarks()

@@ -7,15 +7,17 @@ import BookmarkCard from '../BookmarkCard/index.ts'
 export default function BookmarkList({ initialBookmarks }: { initialBookmarks: Bookmark[] }) {
     const [bookmarks, setBookmarks] = useState(initialBookmarks)
     const [isRemoving, setIsRemoving] = useState(false)
+    const [failedRemoveId, setFailedRemoveId] = useState<string | null>(null)
 
     async function handleRemove(id: string) {
         setIsRemoving(true)
+        setFailedRemoveId(null)
 
         try {
             await removeBookmark(id)
             setBookmarks((current) => current.filter((bookmark) => bookmark.id !== id))
-        } catch (error) {
-            console.error('Could not delete bookmark', id, error)
+        } catch {
+            setFailedRemoveId(id)
         } finally {
             setIsRemoving(false)
         }
@@ -32,6 +34,7 @@ export default function BookmarkList({ initialBookmarks }: { initialBookmarks: B
                     key={bookmark.id}
                     bookmark={bookmark}
                     isRemoving={isRemoving}
+                    removeFailed={failedRemoveId === bookmark.id}
                     onRemove={handleRemove}
                 />
             ))}

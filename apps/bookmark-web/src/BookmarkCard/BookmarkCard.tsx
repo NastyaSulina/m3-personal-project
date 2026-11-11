@@ -6,10 +6,16 @@ import cn from 'clsx'
 interface BookmarkCardProps {
     bookmark: Bookmark
     isRemoving: boolean
+    removeFailed: boolean
     onRemove: (id: string) => Promise<void>
 }
 
-export default function BookmarkCard({ bookmark, isRemoving, onRemove }: BookmarkCardProps) {
+export default function BookmarkCard({
+    bookmark,
+    isRemoving,
+    removeFailed,
+    onRemove,
+}: BookmarkCardProps) {
     return (
         <li className="bookmark-card">
             <header className="bookmark-card-header">
@@ -38,6 +44,11 @@ export default function BookmarkCard({ bookmark, isRemoving, onRemove }: Bookmar
                     Delete
                 </button>
             </div>
+            {removeFailed && (
+                <p className="bookmark-card-error" role="alert">
+                    Could not delete this bookmark. Try Delete again.
+                </p>
+            )}
         </li>
     )
 }

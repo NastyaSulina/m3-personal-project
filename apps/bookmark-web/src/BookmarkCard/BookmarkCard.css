@@ -131,6 +131,11 @@
     background: #ffd455;
 }
 
+.bookmark-card-error {
+    grid-column: 1 / -1;
+    font-size: 14px;
+}
+
 @media (max-width: 700px) {
     .bookmark-card {
         grid-template-columns: minmax(0, 1fr);
