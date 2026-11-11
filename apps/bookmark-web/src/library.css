@@ -83,7 +83,7 @@
 .bookmark-list {
     display: grid;
     gap: 12px;
-    padding: 0;
+    padding: 0 0 32px;
 }
 
 @media (max-width: 540px) {

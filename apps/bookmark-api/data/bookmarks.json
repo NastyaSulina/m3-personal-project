@@ -66,5 +66,20 @@
         "isFavorite": false,
         "note": "Try it",
         "id": "5863a93d-db3e-45ec-903b-72945afc5294"
+    },
+    {
+        "kind": "product",
+        "title": "Coding for dammies",
+        "url": "https://www.dummies.com/book/technology/programming-web-design/coding/coding-for-dummies-281667/",
+        "category": "reading",
+        "tags": [
+            "reading",
+            "development",
+            "book"
+        ],
+        "isFavorite": false,
+        "price": 16,
+        "currency": "EUR",
+        "id": "70e9dac0-160d-4bbb-87f5-f854d96ff26d"
     }
 ]

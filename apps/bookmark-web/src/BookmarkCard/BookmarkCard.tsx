@@ -51,6 +51,7 @@ export default function BookmarkCard({
                     Delete
                 </button>
             </div>
+
             {error && (
                 <p className="bookmark-card-error" role="alert">
                     {error}
