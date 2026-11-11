@@ -3,7 +3,13 @@ import './BookmarkCard.css'
 import type { Bookmark } from 'bookmark-library'
 import cn from 'clsx'
 
-export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
+interface BookmarkCardProps {
+    bookmark: Bookmark
+    isRemoving: boolean
+    onRemove: (id: string) => Promise<void>
+}
+
+export default function BookmarkCard({ bookmark, isRemoving, onRemove }: BookmarkCardProps) {
     return (
         <li className="bookmark-card">
             <header className="bookmark-card-header">
@@ -24,7 +30,13 @@ export default function BookmarkCard({ bookmark }: { bookmark: Bookmark }) {
                 <button type="button" className={cn({ favorite: bookmark.isFavorite })}>
                     Favorite
                 </button>
-                <button type="button">Delete</button>
+                <button
+                    type="button"
+                    disabled={isRemoving}
+                    onClick={() => void onRemove(bookmark.id)}
+                >
+                    Delete
+                </button>
             </div>
         </li>
     )

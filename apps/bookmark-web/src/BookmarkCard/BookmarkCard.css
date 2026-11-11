@@ -138,6 +138,12 @@
         padding: 28px 16px 12px;
     }
 
+    .bookmark-card-note {
+        padding-left: 0;
+        border-left: 0;
+        opacity: 0.82;
+    }
+
     .bookmark-card-actions {
         grid-column: 1;
     }
