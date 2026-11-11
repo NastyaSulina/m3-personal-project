@@ -6,6 +6,8 @@ I save links to shops, books, courses and tools in different places. I built Boo
 
 ## Run
 
+Node.js 24 and pnpm 12.
+
 From the project root, run `pnpm install`.
 
 ### API
@@ -43,16 +45,31 @@ pnpm lint
 
 ## Monorepo structure
 
-- `apps/bookmark-api` handles requests with Fastify and saves bookmarks in `data/bookmarks.json`.
-- `apps/bookmark-cli` contains the `add`, `list` and `remove` commands.
-- `apps/bookmark-web` shows the bookmarks in a React app built with Vite.
-- `features/bookmark-library` contains the bookmark types, validation, library class and API calls
+The project is a pnpm workspace. Nx runs commands across the packages.
+
+- `apps/bookmark-api` serves the bookmarks with Fastify and saves changes to a JSON file.
+- `apps/bookmark-cli` contains the terminal commands. Commander reads the arguments and Inquirer asks for any missing details.
+- `apps/bookmark-web` is the React and Vite app. Its main view is a list of bookmark cards.
+- `features/bookmark-library` contains the `Library` class, bookmark types, type guards and shared API services.
 - `internal/dev-config` holds the shared TypeScript, ESLint and Prettier settings.
 
-## Storage limitation
+## Current state
 
-I store bookmarks in a JSON file because that's how we learned to save data in class. The API loads the file once at startup. It keeps one library in memory and saves each change to disk. Multiple processes could overwrite each other's changes, so I'd use a database for that.
+**What works**
 
-## What's next
+- In the CLI, I can add a website or product, list my bookmarks and remove one by URL or pick one from the list.
+- In the browser, I can open a bookmark, delete it and mark or unmark it as a favorite. These changes are saved.
+- Both apps use the same API. It supports `GET` for the list or a single bookmark, `POST` to add one, `DELETE` to remove one and `PATCH` to change its favorite status.
 
-`GET /api/bookmarks` returns the whole collection. As the list grows, I'd like to fetch it a page at a time.
+**What's still missing**
+
+We worked with JSON files in class, so I started with one here. The API loads it into memory at startup and writes changes back to disk. This works for my local setup. Two API processes writing to the same file could overwrite each other's changes.
+
+I'm happy with the CLI. The web app is still a single list built from a few components. I use the terminal when I want to save a new link.
+
+**What I'd do next**
+
+- Move the bookmarks to a database and handle concurrent updates so one change can't silently overwrite another.
+- Work out a design I'd enjoy using every day. Start with adding and editing bookmarks in the browser, then add filters by tag, category and favorite status.
+- Add sign-in so each person has their own library. As the web app grows, split it into pages and group the related components in modlets.
+- Add pagination to `GET /api/bookmarks` so a large library can load one page at a time.

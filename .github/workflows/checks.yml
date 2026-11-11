@@ -27,3 +27,6 @@ jobs:
 
             - name: Check packages
               run: pnpm lint
+
+            - name: Check build
+              run: pnpm --filter bookmark-web build
