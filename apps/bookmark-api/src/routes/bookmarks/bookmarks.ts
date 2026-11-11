@@ -84,13 +84,14 @@ const bookmarks: FastifyPluginAsync = async (fastify) => {
         if (
             !patch ||
             typeof patch !== 'object' ||
+            Array.isArray(patch) ||
             Object.keys(patch).some((key) => !editableFields.includes(key))
         ) {
             return reply.code(400).send({ error: 'Field is not writable' })
         }
 
-        if ('isFavorite' in patch && typeof patch.isFavorite !== 'boolean') {
-            return reply.code(400).send({ error: 'Invalid field value' })
+        if (!('isFavorite' in patch) || typeof patch.isFavorite !== 'boolean') {
+            return reply.code(400).send({ error: 'isFavorite must be a boolean' })
         }
 
         const bookmark = await editBookmark(library, request.params.id, patch)

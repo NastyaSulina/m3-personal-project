@@ -1,5 +1,5 @@
 import { confirm, input, select } from '@inquirer/prompts'
-import { addBookmark, isBookmarkInput } from 'bookmark-library'
+import { addBookmark, isBookmarkInput, isValidPrice } from 'bookmark-library'
 
 interface AddOptions {
     title?: string
@@ -15,7 +15,10 @@ interface AddOptions {
 async function add(url: string | undefined, options: AddOptions): Promise<void> {
     let { title, kind, category, tags, note, favorite, price, currency } = options
 
-    url ??= await input({ message: 'URL:' })
+    url ??= await input({
+        message: 'URL:',
+        validate: (text) => text.trim() !== '' || 'Enter a URL',
+    })
 
     kind ??= await select({
         message: 'Bookmark type:',
@@ -33,7 +36,10 @@ async function add(url: string | undefined, options: AddOptions): Promise<void> 
         throw new Error('Price and currency are only for products')
     }
 
-    title ??= await input({ message: 'Title:' })
+    title ??= await input({
+        message: 'Title:',
+        validate: (text) => text.trim() !== '' || 'Enter a title',
+    })
 
     category ??= await select({
         message: 'Category:',
@@ -61,8 +67,18 @@ async function add(url: string | undefined, options: AddOptions): Promise<void> 
     }
 
     if (kind === 'product') {
-        price ??= await input({ message: 'Price:' })
-        currency ??= await input({ message: 'Currency:', default: 'EUR' })
+        price ??= await input({
+            message: 'Price:',
+            validate: (text) => {
+                const value = Number(text)
+                return (text.trim() !== '' && isValidPrice(value)) || 'Enter a price of 0 or more'
+            },
+        })
+        currency ??= await input({
+            message: 'Currency:',
+            default: 'EUR',
+            validate: (text) => text.trim() !== '' || 'Enter a currency',
+        })
 
         bookmark.price = price.trim() ? Number(price) : NaN
         bookmark.currency = currency.trim().toUpperCase()
