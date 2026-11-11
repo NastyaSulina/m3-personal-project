@@ -29,7 +29,7 @@ async function loadBookmarks() {
             <div className="library-state library-error">
                 <div role="alert">
                     <h1>Could not load bookmarks</h1>
-                    <p>Check that the bookmark server is running.</p>
+                    <p>Check that the bookmark server is running</p>
                 </div>
                 <button
                     className="library-retry"
